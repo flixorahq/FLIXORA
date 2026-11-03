@@ -1,11 +1,14 @@
-// Replace these placeholders with your Firebase project's web app config.
-// Firebase Console → Project settings → Your apps → Web app.
-// Never put service-account keys or private server secrets in this file.
-export const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+const firebaseConfig = {
+  apiKey: "AIzaSyCJALF9Gja7yh3i3GEUBAOXLUOrs8tdk6k",
+  authDomain: "flixora-424ac.firebaseapp.com",
+  projectId: "flixora-424ac",
+  storageBucket: "flixora-424ac.firebasestorage.app",
+  messagingSenderId: "486820984590",
+  appId: "1:486820984590:web:f6b994f019a9c52cf6c95f",
+  measurementId: "G-27VV5CMV38"
 };
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+const auth = firebase.auth();
