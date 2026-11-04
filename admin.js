@@ -4,6 +4,7 @@ import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, getDocs, s
 import { firebaseConfig } from "./firebase-config.js";
 const app=initializeApp(firebaseConfig), auth=getAuth(app), db=getFirestore(app);
 const $=s=>document.querySelector(s), loginPanel=$("#login-panel"), editor=$("#editor-panel");
+$("#login-msg").textContent = "JavaScript চালু হয়েছে";
 $("#login").onclick=async()=>{try{await signInWithEmailAndPassword(auth,$("#email").value,$("#password").value);$("#login-msg").textContent="Signed in.";}catch(e){$("#login-msg").textContent="Login failed. Check account and Firebase setup."; }};
 $("#logout").onclick=()=>signOut(auth);
 onAuthStateChanged(auth,user=>{loginPanel.classList.toggle("hidden",!!user);editor.classList.toggle("hidden",!user);if(user)loadList();});
