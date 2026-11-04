@@ -1,5 +1,6 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyCJALF9Gja7yh3i3GEUBAOXLUOrs8tdk6k",
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyCJAL9F9ja7yh3i3GEUBAOXLUOrs8tdk6k",
   authDomain: "flixora-424ac.firebaseapp.com",
   projectId: "flixora-424ac",
   storageBucket: "flixora-424ac.firebasestorage.app",
@@ -7,8 +8,3 @@ const firebaseConfig = {
   appId: "1:486820984590:web:f6b994f019a9c52cf6c95f",
   measurementId: "G-27VV5CMV38"
 };
-
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.firestore();
-const auth = firebase.auth();
