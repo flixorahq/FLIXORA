@@ -1,8 +1,117 @@
+
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin — FLIXORA</title><link rel="stylesheet" href="style.css"></head>
-<body><header class="top"><a class="brand" href="index.html">FLIXORA</a><a class="admin-link" href="index.html">View site</a></header>
-<main class="wrap admin-wrap"><h1>Admin panel</h1><p class="muted">Sign in with the authorized Firebase account. Do not publish admin credentials in website files.</p>
-<section id="login-panel" class="panel"><h2>Admin login</h2><label>Email<input id="email" type="email" autocomplete="username" placeholder="Admin email"></label><label>Password<input id="password" type="password" autocomplete="current-password" placeholder="Password"></label><button id="login">Sign in</button><p id="login-msg" class="notice" aria-live="polite"></p></section>
-<section id="editor-panel" class="panel hidden"><div class="section-head"><h2>Manage movies</h2><button id="logout" class="secondary">Sign out</button></div>
-<form id="movie-form"><input id="movie-id" type="hidden"><label>Movie title<input id="title" required maxlength="100"></label><label>Description<textarea id="description" rows="3"></textarea></label><label>Thumbnail image URL<input id="image" type="url" placeholder="https://…"></label><label>Category<input id="category" placeholder="Action, Drama…"></label><label>Authorized video/embed URL<input id="video" type="url" placeholder="https://…"></label><label>Final download URL (optional)<input id="download" type="url" placeholder="https://…"></label><label>Ad link 1 (optional)<input id="ad1" type="url" placeholder="https://…"></label><label>Ad link 2 (optional)<input id="ad2" type="url" placeholder="https://…"></label><div class="actions"><button type="submit">Save movie</button><button type="button" id="clear" class="secondary">Clear</button></div><p id="save-msg" class="notice" aria-live="polite"></p></form><h2>Movie list</h2><div id="admin-list"></div></section></main>
-<footer>FLIXORA Admin · Secure access is enforced by Firebase rules, not by hiding this page.</footer><script type="module" src="admin.js"></script></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin — FLIXORA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="top">
+    <a class="brand" href="index.html">FLIXORA</a>
+    <a class="admin-link" href="index.html">View site</a>
+  </header>
+
+  <main class="wrap admin-wrap">
+    <h1>Admin panel</h1>
+    <p class="muted">
+      Sign in with the authorized Firebase account.
+      Do not publish admin credentials in website files.
+    </p>
+
+    <section id="login-panel" class="panel">
+      <h2>Admin login</h2>
+
+      <label>
+        Email
+        <input id="email" type="email"
+          autocomplete="username" placeholder="Admin email">
+      </label>
+
+      <label>
+        Password
+        <input id="password" type="password"
+          autocomplete="current-password" placeholder="Password">
+      </label>
+
+      <button id="login" type="button">Sign in</button>
+
+      <p id="login-msg" class="notice" aria-live="polite"></p>
+    </section>
+
+    <section id="editor-panel" class="panel hidden">
+      <div class="section-head">
+        <h2>Manage movies</h2>
+        <button id="logout" type="button" class="secondary">
+          Sign out
+        </button>
+      </div>
+
+      <form id="movie-form">
+        <input id="movie-id" type="hidden">
+
+        <label>
+          Movie title
+          <input id="title" required maxlength="100">
+        </label>
+
+        <label>
+          Description
+          <textarea id="description" rows="3"></textarea>
+        </label>
+
+        <label>
+          Thumbnail image URL
+          <input id="image" type="url" placeholder="https://…">
+        </label>
+
+        <label>
+          Category
+          <input id="category" placeholder="Action, Drama…">
+        </label>
+
+        <label>
+          Authorized video/embed URL
+          <input id="video" type="url" placeholder="https://…">
+        </label>
+
+        <label>
+          Final download URL (optional)
+          <input id="download" type="url" placeholder="https://…">
+        </label>
+
+        <label>
+          Ad link 1 (optional)
+          <input id="ad1" type="url" placeholder="https://…">
+        </label>
+
+        <label>
+          Ad link 2 (optional)
+          <input id="ad2" type="url" placeholder="https://…">
+        </label>
+
+        <div class="actions">
+          <button type="submit">Save movie</button>
+          <button type="button" id="clear" class="secondary">
+            Clear
+          </button>
+        </div>
+
+        <p id="save-msg" class="notice" aria-live="polite"></p>
+      </form>
+
+      <h2>Movie list</h2>
+      <div id="admin-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    FLIXORA Admin · Secure access is enforced by Firebase rules,
+    not by hiding this page.
+  </footer>
+
+  <script type="module" src="admin.js?v=3"></script>
+</body>
+</html>
