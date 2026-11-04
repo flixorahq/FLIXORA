@@ -1,6 +1,6 @@
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyCJAL9F9ja7yh3i3GEUBAOXLUOrs8tdk6k",
+  apiKey: "AIzaSyCJALF9Gja7yh3i3GEUBAOXLUOrs8tdk6k",
   authDomain: "flixora-424ac.firebaseapp.com",
   projectId: "flixora-424ac",
   storageBucket: "flixora-424ac.firebasestorage.app",
