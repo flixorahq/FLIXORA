@@ -205,3 +205,12 @@ button:disabled{opacity:.6;cursor:wait;transform:none}
   html{scroll-behavior:auto}
   *,*::before,*::after{transition:none!important}
 }
+
+/* FLIXORA movie logo */
+.brand{display:inline-flex;align-items:center;gap:9px;white-space:nowrap}
+.brand-icon{width:36px;height:36px;flex:0 0 36px;filter:drop-shadow(0 0 9px rgba(25,200,230,.24))}
+.brand-icon .body{fill:#10283a;stroke:#19C8E6;stroke-width:2}
+.brand-icon .clapper{fill:#19C8E6;stroke:#19C8E6;stroke-width:1.4;stroke-linejoin:round}
+.brand-icon .stripe{fill:#07111d}
+.brand-icon .play{fill:#f3f8fc}
+.brand-word{color:#19C8E6;letter-spacing:2px}
