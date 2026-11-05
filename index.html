@@ -1,7 +1,68 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FLIXORA — Movies</title><link rel="stylesheet" href="style.css"></head>
-<body><header class="top"><a class="brand" href="index.html" aria-label="FLIXORA Home"><svg class="brand-icon" viewBox="0 0 48 48" aria-hidden="true"><path class="clapper" d="M8 13.5 36.5 6l4 10.5L12 24z"/><path class="body" d="M10 21h29a3 3 0 0 1 3 3v16a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3V24a3 3 0 0 1 3-3Z"/><path class="play" d="m21 27 11 6-11 6z"/><path class="stripe" d="m15 11 5-1.3 4 10.5-5 1.3zm12-3.2 5-1.3 4 10.5-5 1.3z"/></svg><span class="brand-word">FLIXORA</span></a></header>
-<main class="wrap"><section class="hero"><p class="eyebrow">MOVIES • ENTERTAINMENT</p><h1>Find your next movie.</h1><p>Browse titles and open the movie details to view available links.</p><input id="search" class="search" placeholder="Search movies…" aria-label="Search movies"></section>
-<section><div class="section-head"><h2>Latest movies</h2><span id="count" class="muted"></span></div><div id="movie-grid" class="grid"><p class="muted">Loading movies…</p></div></section></main>
-<footer>FLIXORA · Only use links to content you own or are authorized to share.</footer>
-<script type="module" src="app.js"></script></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080910">
+  <title>FLIXORA — Movies</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="index.html" aria-label="FLIXORA Home">
+      <svg class="brand-icon" viewBox="0 0 48 48" aria-hidden="true">
+        <path class="clapper" d="M8 13.5 36.5 6l4 10.5L12 24z"/>
+        <path class="body" d="M10 21h29a3 3 0 0 1 3 3v16a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3V24a3 3 0 0 1 3-3Z"/>
+        <path class="play" d="m21 27 11 6-11 6z"/>
+        <path class="stripe" d="m15 11 5-1.3 4 10.5-5 1.3zm12-3.2 5-1.3 4 10.5-5 1.3z"/>
+      </svg>
+      <span class="brand-word">FLIXORA</span>
+    </a>
+    <a class="header-home" href="#latest">Explore movies <span aria-hidden="true">↓</span></a>
+  </header>
+
+  <main class="wrap">
+    <section class="featured" id="featured" aria-label="Featured movie">
+      <div class="featured-content">
+        <span class="eyebrow">WELCOME TO FLIXORA</span>
+        <p class="featured-kicker">MOVIES · SERIES · ENTERTAINMENT</p>
+        <h1>Stories worth watching.</h1>
+        <p class="featured-description">Discover your next favourite movie.</p>
+        <a class="feature-button" href="#latest">Explore collection <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="featured-art" aria-hidden="true">
+        <div class="art-orbit orbit-one"></div>
+        <div class="art-orbit orbit-two"></div>
+        <div class="art-play">▶</div>
+        <span class="art-label">NOW SHOWING</span>
+      </div>
+    </section>
+
+    <section class="browse-section" aria-label="Browse categories">
+      <div class="section-heading">
+        <div><span class="section-kicker">FIND YOUR MOOD</span><h2>Browse categories</h2></div>
+      </div>
+      <div id="category-list" class="category-list">
+        <button class="category-chip active" type="button" data-category="all">All</button>
+      </div>
+    </section>
+
+    <section id="latest" class="movies-section">
+      <div class="section-heading">
+        <div><span class="section-kicker">FRESH PICKS</span><h2>Latest movies</h2></div>
+        <span id="count" class="count-label"></span>
+      </div>
+      <label class="search-wrap">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="search" class="search" type="search" placeholder="Search movies or categories…" aria-label="Search movies">
+      </label>
+      <div id="movie-grid" class="grid">
+        <p class="muted">Loading movies…</p>
+      </div>
+    </section>
+  </main>
+
+  <footer><span class="footer-brand">FLIXORA</span><span>Only use links to content you own or are authorized to share.</span></footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
