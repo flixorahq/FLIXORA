@@ -22,19 +22,20 @@
   </header>
 
   <main class="wrap">
-    <section class="featured" id="featured" aria-label="Featured movie">
-      <div class="featured-content">
-        <span class="eyebrow">WELCOME TO FLIXORA</span>
-        <p class="featured-kicker">MOVIES · SERIES · ENTERTAINMENT</p>
-        <h1>Stories worth watching.</h1>
-        <p class="featured-description">Discover your next favourite movie.</p>
-        <a class="feature-button" href="#latest">Explore collection <span aria-hidden="true">→</span></a>
+    <section class="featured-section" id="featured" aria-label="Featured movies">
+      <div class="featured-heading">
+        <div>
+          <span class="section-kicker">WELCOME TO FLIXORA</span>
+          <h1>Movies worth exploring</h1>
+          <p>Discover your next favourite.</p>
+        </div>
+        <div class="slider-controls" aria-label="Featured movie controls">
+          <button class="slider-arrow" id="featured-prev" type="button" aria-label="Scroll featured movies left">‹</button>
+          <button class="slider-arrow" id="featured-next" type="button" aria-label="Scroll featured movies right">›</button>
+        </div>
       </div>
-      <div class="featured-art" aria-hidden="true">
-        <div class="art-orbit orbit-one"></div>
-        <div class="art-orbit orbit-two"></div>
-        <div class="art-play">▶</div>
-        <span class="art-label">NOW SHOWING</span>
+      <div class="featured-track" id="featured-track" tabindex="0" aria-label="Scroll through featured movie posters">
+        <p class="featured-empty">Your movie collection will appear here.</p>
       </div>
     </section>
 

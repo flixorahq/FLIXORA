@@ -1,18 +1,97 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { firebaseConfig } from "./firebase-config.js";
-const grid=document.querySelector("#movie-grid"), search=document.querySelector("#search"), count=document.querySelector("#count");
-let movies=[];
-function esc(s=""){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-function render(){
- const term=search.value.trim().toLowerCase();
- const filtered=movies.filter(m=>(m.title||"").toLowerCase().includes(term)||(m.category||"").toLowerCase().includes(term));
- count.textContent=`${filtered.length} titles`;
- grid.innerHTML=filtered.length?filtered.map(m=>`<a class="movie-card" href="details.html?id=${encodeURIComponent(m.id)}"><img src="${esc(m.image||"")}" alt="" loading="lazy" onerror="this.style.display='none'"><div class="card-info"><span class="tag">${esc(m.category||"Movie")}</span><h3>${esc(m.title||"Untitled")}</h3></div></a>`).join(""):'<p class="muted">No movies found.</p>';
+
+const grid = document.querySelector("#movie-grid");
+const search = document.querySelector("#search");
+const count = document.querySelector("#count");
+const categoryList = document.querySelector("#category-list");
+const featured = document.querySelector("#featured");
+let movies = [];
+let activeCategory = "all";
+
+function esc(value = "") {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[char]));
 }
-search.addEventListener("input",render);
-try{
- const app=initializeApp(firebaseConfig), db=getFirestore(app);
- const snap=await getDocs(query(collection(db,"movies"),orderBy("createdAt","desc")));
- movies=snap.docs.map(d=>({id:d.id,...d.data()})); render();
-}catch(e){grid.innerHTML='<p class="muted">Connect Firebase and publish your first movie from the admin panel. See README.txt for setup.</p>';count.textContent="";console.error(e);}
+
+function renderCategories() {
+  const categories = [...new Set(movies.map(movie => (movie.category || "").trim()).filter(Boolean))];
+  categoryList.innerHTML = [
+    `<button class="category-chip ${activeCategory === "all" ? "active" : ""}" type="button" data-category="all">All</button>`,
+    ...categories.map(category => `<button class="category-chip ${activeCategory === category ? "active" : ""}" type="button" data-category="${esc(category)}">${esc(category)}</button>`)
+  ].join("");
+
+  categoryList.querySelectorAll(".category-chip").forEach(button => {
+    button.addEventListener("click", () => {
+      activeCategory = button.dataset.category;
+      renderCategories();
+      renderMovies();
+    });
+  });
+}
+
+function renderFeatured() {
+  const track = document.querySelector("#featured-track");
+  if (!track) return;
+
+  const featuredMovies = movies.filter(movie => movie.image).slice(0, 12);
+  track.innerHTML = featuredMovies.length
+    ? featuredMovies.map(movie => `
+      <a class="featured-poster" href="details.html?id=${encodeURIComponent(movie.id)}" aria-label="View ${esc(movie.title || "movie")}">
+        <img src="${esc(movie.image)}" alt="${esc(movie.title || "Movie poster")}" loading="lazy" onerror="this.closest('.featured-poster').remove()">
+        <span class="featured-poster-title">${esc(movie.title || "Untitled")}</span>
+      </a>`).join("")
+    : '<p class="featured-empty">Add movie posters from the Admin Panel and they will appear here.</p>';
+}
+
+function renderMovies() {
+  const term = search.value.trim().toLowerCase();
+  const filtered = movies.filter(movie => {
+    const matchesText = (movie.title || "").toLowerCase().includes(term) ||
+      (movie.category || "").toLowerCase().includes(term);
+    const matchesCategory = activeCategory === "all" || (movie.category || "").trim() === activeCategory;
+    return matchesText && matchesCategory;
+  });
+
+  count.textContent = `${filtered.length} ${filtered.length === 1 ? "title" : "titles"}`;
+  grid.innerHTML = filtered.length
+    ? filtered.map(movie => `
+      <a class="movie-card" href="details.html?id=${encodeURIComponent(movie.id)}">
+        <div class="poster-wrap">
+          <img src="${esc(movie.image || "")}" alt="${esc(movie.title || "Movie poster")}" loading="lazy" onerror="this.style.display='none'">
+          <span class="poster-badge">${esc(movie.category || "MOVIE")}</span>
+        </div>
+        <div class="card-info">
+          <span class="tag">${esc(movie.category || "Movie")}</span>
+          <h3>${esc(movie.title || "Untitled")}</h3>
+          <span class="card-open">View details <span aria-hidden="true">→</span></span>
+        </div>
+      </a>`).join("")
+    : '<p class="empty-state">No movies found. Try another search or category.</p>';
+}
+
+search.addEventListener("input", renderMovies);
+
+try {
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const snapshot = await getDocs(query(collection(db, "movies"), orderBy("createdAt", "desc")));
+  movies = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  renderCategories();
+  renderFeatured();
+  renderMovies();
+} catch (error) {
+  grid.innerHTML = '<p class="empty-state">Movies could not be loaded. Please check the connection and try again.</p>';
+  count.textContent = "";
+  console.error("FLIXORA movie loading error:", error);
+}
+
+\nconst featuredTrack = document.querySelector("#featured-track");
+document.querySelector("#featured-prev")?.addEventListener("click", () => {
+  featuredTrack?.scrollBy({ left: -featuredTrack.clientWidth * 0.8, behavior: "smooth" });
+});
+document.querySelector("#featured-next")?.addEventListener("click", () => {
+  featuredTrack?.scrollBy({ left: featuredTrack.clientWidth * 0.8, behavior: "smooth" });
+});
