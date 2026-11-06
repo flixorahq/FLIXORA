@@ -88,7 +88,7 @@ try {
   console.error("FLIXORA movie loading error:", error);
 }
 
-\nconst featuredTrack = document.querySelector("#featured-track");
+const featuredTrack = document.querySelector("#featured-track");
 document.querySelector("#featured-prev")?.addEventListener("click", () => {
   featuredTrack?.scrollBy({ left: -featuredTrack.clientWidth * 0.8, behavior: "smooth" });
 });
