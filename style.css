@@ -144,6 +144,32 @@ footer { display: flex; justify-content: center; flex-wrap: wrap; gap: 9px 18px;
 .button, button { display: inline-block; border: 0; border-radius: 10px; background: var(--accent); color: #04151b; font-weight: 800; padding: 12px 17px; text-decoration: none; cursor: pointer; font: inherit; transition: filter .18s ease, transform .18s ease; }
 .button:hover, button:hover { filter: brightness(1.08); transform: translateY(-1px); }
 button:disabled { opacity: .6; cursor: wait; transform: none; }
+
+/* New Watch Movie button only */
+.watch-movie-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 13px 22px;
+  border: 1px solid rgba(73, 220, 255, .65);
+  border-radius: 12px;
+  color: #f5fbff;
+  background: linear-gradient(110deg, #087fae, #13b9d4 58%, #247fe0);
+  box-shadow: 0 7px 24px rgba(0, 174, 220, .2), inset 0 1px 0 rgba(255,255,255,.18);
+  font-weight: 850;
+  letter-spacing: .7px;
+}
+.watch-movie-button svg { width: 22px; height: 22px; flex: 0 0 22px; fill: currentColor; }
+.watch-movie-button svg circle { fill: none; stroke: currentColor; stroke-width: 1.8; }
+.watch-movie-button svg path { fill: currentColor; }
+.watch-movie-button:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 9px 28px rgba(0, 174, 220, .3);
+}
+.watch-movie-button:focus-visible { outline: 3px solid rgba(66,214,208,.45); outline-offset: 3px; }
+
 .download-box, .panel { background: linear-gradient(145deg,#132236,#0f1927); border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin-top: 22px; }
 .download-box h2 { margin: 0; }
 .admin-wrap { max-width: 760px; }
