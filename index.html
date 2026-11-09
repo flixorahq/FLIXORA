@@ -8,12 +8,19 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="index.html">
-        <span class="brand-logo" aria-hidden="true">🎬</span>
-        <span class="brand-name">FLIXORA</span>
-      </a>
+  <header class="top">
+    <a class="brand" href="index.html">
+      <svg class="brand-icon" viewBox="0 0 38 38" aria-hidden="true">
+        <rect class="body" x="2" y="4" width="34" height="30" rx="6"></rect>
+        <path class="clapper" d="M2 12h34M6 4l4 8M16 4l4 8M26 4l4 8"></path>
+        <path class="stripe" d="M6 16h26v6H6z"></path>
+        <polygon class="play" points="16,15 25,19 16,23"></polygon>
+      </svg>
+      <span class="brand-word">FLIXORA</span>
+    </a>
+    <a class="header-home" href="index.html">Explore movies <span>↓</span></a>
+  </header>
+  
       <nav class="nav-links">
         <a href="index.html" class="active">Explore movies ↓</a>
       </nav>
