@@ -20,24 +20,18 @@
     </a>
     <a class="header-home" href="index.html">Explore movies <span>↓</span></a>
   </header>
-  
-      <nav class="nav-links">
-        <a href="index.html" class="active">Explore movies ↓</a>
-      </nav>
-    </div>
-  </header>
 
   <main class="container">
     <section class="featured-section" aria-label="Featured movies">
-      <div class="featured-header">
+      <div class="featured-heading">
         <div>
-          <span class="section-kicker">WELCOME TO FLIXORA</span>
-          <h2>Movies worth exploring</h2>
+          <p style="margin:0 0 2px; color:var(--accent); font-size:11px; font-weight:800; letter-spacing:1px;">WELCOME TO FLIXORA</p>
+          <h1>Movies worth exploring</h1>
         </div>
-        <p class="muted">Discover your next favourite.</p>
-        <div class="featured-controls">
-          <button id="featured-prev" class="featured-control" type="button" aria-label="Previous featured movies">‹</button>
-          <button id="featured-next" class="featured-control" type="button" aria-label="Next featured movies">›</button>
+        <p>Discover your next favourite.</p>
+        <div class="slider-controls">
+          <button id="featured-prev" class="slider-arrow" type="button" aria-label="Previous featured movies">‹</button>
+          <button id="featured-next" class="slider-arrow" type="button" aria-label="Next featured movies">›</button>
         </div>
       </div>
       <div id="featured-track" class="featured-track">
@@ -45,14 +39,16 @@
       </div>
     </section>
 
-    <!-- ক্যাটাগরি লিস্ট (বড় হেডার বাদ দিয়ে শুধু চিপসগুলো রাখা হয়েছে) -->
-    <div id="category-list" class="category-list">
-      <button class="category-chip active" type="button" data-category="all">All</button>
+    <!-- ক্যাটাগরি লিস্ট (অপ্রয়োজনীয় হেডার বাদ দেওয়া হয়েছে) -->
+    <div class="browse-section">
+      <div id="category-list" class="category-list">
+        <button class="category-chip active" type="button" data-category="all">All</button>
+      </div>
     </div>
 
-    <!-- মুভি সেকশন (বড় হেডার লেখা বাদ দিয়ে শুধু সার্চ ও গ্রিড) -->
+    <!-- মুভি সেকশন (অপ্রয়োজনীয় FRESH PICKS লেখা বাদ দিয়ে সরাসরি গ্রিড) -->
     <section id="latest" class="movies-section">
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 11px;">
         <span id="count" class="count-label"></span>
       </div>
       <label class="search-wrap">
@@ -65,10 +61,8 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>&copy; FLIXORA. All rights reserved.</p>
-    </div>
+  <footer>
+    <p>&copy; FLIXORA. All rights reserved.</p>
   </footer>
 
   <script type="module" src="app.js"></script>
