@@ -1,65 +1,54 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090b18">
-  <meta name="description" content="Explore movies on FLIXORA. Discover movie details, browse categories and find your next movie to watch.">
-  <meta name="robots" content="index,follow">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="FLIXORA — Movies">
-  <meta property="og:description" content="Discover your next favourite movie on FLIXORA.">
-  <title>FLIXORA — Explore Movies</title>
-  <link rel="icon" type="image/jpeg" href="1000014047.jpg">
-  <link rel="stylesheet" href="style.css?v=4">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FLIXORA - Movies Worth Exploring</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="top">
-    <a class="brand" href="index.html" aria-label="FLIXORA Home">
-      <svg class="brand-icon" viewBox="0 0 48 48" aria-hidden="true">
-        <path class="clapper" d="M8 13.5 36.5 6l4 10.5L12 24z"/>
-        <path class="body" d="M10 21h29a3 3 0 0 1 3 3v16a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3V24a3 3 0 0 1 3-3Z"/>
-        <path class="play" d="m21 27 11 6-11 6z"/>
-        <path class="stripe" d="m15 11 5-1.3 4 10.5-5 1.3zm12-3.2 5-1.3 4 10.5-5 1.3z"/>
-      </svg>
-      <span class="brand-word">FLIXORA</span>
-    </a>
-    <a class="header-home" href="#latest">Explore movies <span aria-hidden="true">↓</span></a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-logo" aria-hidden="true">🎬</span>
+        <span class="brand-name">FLIXORA</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="active">Explore movies ↓</a>
+      </nav>
+    </div>
   </header>
 
-  <main class="wrap">
-    <section class="featured-section" id="featured" aria-label="Featured movies">
-      <div class="featured-heading">
+  <main class="container">
+    <section class="featured-section" aria-label="Featured movies">
+      <div class="featured-header">
         <div>
           <span class="section-kicker">WELCOME TO FLIXORA</span>
-          <h1>Movies worth exploring</h1>
-          <p>Discover your next favourite.</p>
+          <h2>Movies worth exploring</h2>
         </div>
-        <div class="slider-controls" aria-label="Featured movie controls">
-          <button class="slider-arrow" id="featured-prev" type="button" aria-label="Scroll featured movies left">‹</button>
-          <button class="slider-arrow" id="featured-next" type="button" aria-label="Scroll featured movies right">›</button>
+        <p class="muted">Discover your next favourite.</p>
+        <div class="featured-controls">
+          <button id="featured-prev" class="featured-control" type="button" aria-label="Previous featured movies">‹</button>
+          <button id="featured-next" class="featured-control" type="button" aria-label="Next featured movies">›</button>
         </div>
       </div>
-      <div class="featured-track" id="featured-track" tabindex="0" aria-label="Scroll through featured movie posters">
-        <p class="featured-empty">Your movie collection will appear here.</p>
+      <div id="featured-track" class="featured-track">
+        <p class="featured-empty">Loading featured movies...</p>
       </div>
     </section>
 
-    <section class="browse-section" aria-label="Browse categories">
-      <div class="section-heading">
-        <div><span class="section-kicker">FIND YOUR MOOD</span><h2>Browse categories</h2></div>
-      </div>
-      <div id="category-list" class="category-list">
-        <button class="category-chip active" type="button" data-category="all">All</button>
-      </div>
-    </section>
+    <!-- ক্যাটাগরি চিপস (লেখা ছাড়া, শুধু বাটনগুলো থাকবে) -->
+    <div id="category-list" class="category-list" style="margin-bottom: 14px;">
+      <button class="category-chip active" type="button" data-category="all">All</button>
+    </div>
 
-    <section id="latest" class="movies-section">
-      <div class="section-heading">
-        <div><span class="section-kicker">FRESH PICKS</span><h2>Latest movies</h2></div>
-        <span id="count" class="count-label"></span>
+    <!-- মুভি সেকশন (বড় হেডার লেখা বাদ দিয়ে শুধু সার্চ ও গ্রিড) -->
+    <section id="latest" class="movies-section" style="scroll-margin-top: 70px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px;">
+        <span id="count" class="count-label" style="font-size: 12px;"></span>
       </div>
-      <label class="search-wrap">
+      <label class="search-wrap" style="margin-bottom: 14px;">
         <span class="search-icon" aria-hidden="true">⌕</span>
         <input id="search" class="search" type="search" placeholder="Search movies or categories…" aria-label="Search movies">
       </label>
@@ -69,7 +58,12 @@
     </section>
   </main>
 
-  <footer><span class="footer-brand">FLIXORA</span><span>Only use links to content you own or are authorized to share.</span></footer>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; FLIXORA. All rights reserved.</p>
+    </div>
+  </footer>
+
   <script type="module" src="app.js"></script>
 </body>
 </html>
