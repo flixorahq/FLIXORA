@@ -30,9 +30,6 @@ try {
             </button>
             <p id="watch-msg" class="notice" aria-live="polite" style="margin-top: 8px;"></p>
           </div>
-          <!-- ইন-পেজ ভিডিও প্লেয়ার কন্টেইনার -->
-          <div id="player-container" style="display: none; margin-top: 20px; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: #000;">
-          </div>
         ` : ''}
 
         <div class="download-box">
@@ -45,13 +42,12 @@ try {
     </div>
   `;
 
-  // Watch Online Ad + In-Page Video Player Logic
+  // Watch Online Ad + External Video Link Logic
   if (m.video) {
     let watchStep = 0;
     document.querySelector("#watch-movie").addEventListener("click", () => {
       const watchAds = [m.watchAd1, m.watchAd2].filter(Boolean);
       const watchMsg = document.querySelector("#watch-msg");
-      const playerContainer = document.querySelector("#player-container");
 
       if (watchStep < watchAds.length) {
         // ১ ও ২ নম্বর ক্লিক: অ্যাড লিংকে যাবে
@@ -59,24 +55,9 @@ try {
         watchMsg.textContent = `Opening sponsor link ${watchStep} of ${watchAds.length}. Return to this page to continue.`;
         window.open(adUrl, "_blank", "noopener,noreferrer");
       } else {
-        // ৩ নম্বর ক্লিক: পেজের ভেতরেই ভিডিও প্লেয়ার লোড হবে
-        watchMsg.textContent = "Loading video player below...";
-        playerContainer.style.display = "block";
-        
-        // যদি এম্বেড URL হয় তবে iframe, অন্যথায় কাস্টম iframe লোডার
-        playerContainer.innerHTML = `
-          <iframe 
-            src="${esc(m.video)}" 
-            width="100%" 
-            height="400" 
-            style="border:0;" 
-            allowfullscreen 
-            allow="autoplay; encrypted-media">
-          </iframe>
-        `;
-        
-        // ভিডিও চলা শুরু হলে প্লেয়ারের কাছে স্ক্রোল করে নিয়ে যাবে
-        playerContainer.scrollIntoView({ behavior: 'smooth' });
+        // ৩ নম্বর ক্লিক: সরাসরি এক্সটার্নাল ভিডিও লিংক বা থার্ড-পার্টি প্লেয়ারে ওপেন হবে
+        watchMsg.textContent = "Opening video link...";
+        window.open(m.video, "_blank", "noopener,noreferrer");
       }
     });
   }
