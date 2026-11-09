@@ -1,4 +1,3 @@
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
@@ -93,7 +92,9 @@ function values() {
     video: $("#video").value.trim(),
     download: $("#download").value.trim(),
     ad1: $("#ad1").value.trim(),
-    ad2: $("#ad2").value.trim()
+    ad2: $("#ad2").value.trim(),
+    watchAd1: $("#watchAd1").value.trim(),
+    watchAd2: $("#watchAd2").value.trim()
   };
 }
 
@@ -180,7 +181,9 @@ async function loadList() {
           "video",
           "download",
           "ad1",
-          "ad2"
+          "ad2",
+          "watchAd1",
+          "watchAd2"
         ]) {
           $("#" + key).value = movie[key] || "";
         }
