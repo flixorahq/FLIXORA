@@ -1,4 +1,3 @@
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { firebaseConfig } from "./firebase-config.js";
@@ -14,23 +13,39 @@ const esc = s => String(s || "").replace(/[&<>"']/g, c => ({
   "'": "&#39;"
 }[c]));
 
-// Extract iframe URL from Embed Code or accept a normal URL
-function getEmbedURL(value) {
+// Read iframe code, video code, or direct video URL
+function getMedia(value) {
   const input = String(value || "").trim();
 
   if (!input) return null;
 
-  const match = input.match(
-    /<iframe\b[^>]*\bsrc\s*=\s*(?:"([^"]+)"|'([^']+)'|([^\s>]+))/i
-  );
+  const parsed = new DOMParser().parseFromString(input, "text/html");
 
-  let src = match
-    ? (match[1] || match[2] || match[3])
-    : input;
+  const iframe = parsed.querySelector("iframe");
+
+  let src = null;
+  let type = "video";
+
+  if (iframe) {
+    src = iframe.getAttribute("src");
+    type = "iframe";
+  } else {
+    const video = parsed.querySelector("video");
+    const source = parsed.querySelector("video source");
+
+    if (video || source) {
+      src = source?.getAttribute("src") || video?.getAttribute("src");
+      type = "video";
+    } else if (!input.includes("<")) {
+      src = input;
+      type = "video";
+    } else {
+      return null;
+    }
+  }
 
   if (!src) return null;
 
-  // Decode HTML entities such as &amp;
   const decoder = document.createElement("textarea");
   decoder.innerHTML = src;
   src = decoder.value.trim();
@@ -38,40 +53,72 @@ function getEmbedURL(value) {
   try {
     const url = new URL(src, location.href);
 
-    if (url.protocol !== "https:" && url.protocol !== "http:") {
+    if (!["https:", "http:"].includes(url.protocol)) {
       return null;
     }
 
-    return url.href;
+    return { type, src: url.href };
   } catch {
     return null;
   }
 }
 
+// Display video player
 function showVideo(value) {
   const player = document.querySelector("#video-player");
   const message = document.querySelector("#watch-msg");
 
-  const embedURL = getEmbedURL(value);
+  const media = getMedia(value);
 
-  if (!embedURL) {
+  if (!media) {
     message.textContent = "Invalid Embed Code or video URL.";
     return;
   }
 
-  const iframe = document.createElement("iframe");
-
-  iframe.src = embedURL;
-  iframe.title = "Movie video player";
-  iframe.width = "100%";
-  iframe.height = "100%";
-  iframe.loading = "lazy";
-  iframe.referrerPolicy = "strict-origin-when-cross-origin";
-  iframe.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
-  iframe.allowFullscreen = true;
-
-  player.replaceChildren(iframe);
+  player.replaceChildren();
   player.hidden = false;
+
+  if (media.type === "iframe") {
+    const iframe = document.createElement("iframe");
+
+    iframe.src = media.src;
+    iframe.title = "Movie video player";
+    iframe.width = "100%";
+    iframe.height = "100%";
+    iframe.allowFullscreen = true;
+    iframe.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+    iframe.referrerPolicy = "strict-origin-when-cross-origin";
+    iframe.style.border = "0";
+
+    player.appendChild(iframe);
+
+  } else {
+    const video = document.createElement("video");
+
+    video.controls = true;
+    video.playsInline = true;
+    video.preload = "metadata";
+    video.controlsList = "nodownload";
+    video.style.width = "100%";
+    video.style.height = "100%";
+    video.style.objectFit = "contain";
+
+    const source = document.createElement("source");
+    source.src = media.src;
+
+    video.appendChild(source);
+
+    video.onerror = () => {
+      message.textContent =
+        "Video cannot play. Check video format, URL and server settings.";
+    };
+
+    video.oncanplay = () => {
+      message.textContent = "Video is ready to play.";
+    };
+
+    player.appendChild(video);
+  }
 
   message.textContent = "Video player loaded.";
 
@@ -105,7 +152,7 @@ try {
         <p>${esc(m.description)}</p>
 
         ${m.video ? `
-          <div style="margin-top: 18px;">
+          <div style="margin-top:18px;">
             <button id="watch-movie" class="watch-movie-button" type="button">
               <svg viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="10"/>
@@ -115,11 +162,11 @@ try {
             </button>
 
             <p id="watch-msg" class="notice"
-              aria-live="polite" style="margin-top: 8px;"></p>
+              aria-live="polite" style="margin-top:8px;"></p>
           </div>
 
           <div id="video-player" hidden
-            style="margin-top:18px; width:100%; aspect-ratio:16/9; background:#000; border-radius:12px; overflow:hidden;">
+            style="margin-top:18px;width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;">
           </div>
         ` : ''}
 
@@ -140,7 +187,7 @@ try {
     </div>
   `;
 
-  // Watch Online Ad + Embed Player Logic
+  // Watch Online Ad + Video Player
   if (m.video) {
     let watchStep = 0;
 
@@ -162,7 +209,7 @@ try {
     });
   }
 
-  // Download Ad Click Logic
+  // Download Ad Logic
   let downloadStep = 0;
 
   document.querySelector("#download").addEventListener("click", () => {
@@ -179,7 +226,6 @@ try {
 
     } else if (m.download) {
       msg.textContent = "Opening the download link.";
-
       window.open(m.download, "_blank", "noopener,noreferrer");
 
     } else {
@@ -193,4 +239,4 @@ try {
       ${esc(e.message)}. Check Firebase setup or return to the home page.
     </p>
   `;
-}
+        }
